@@ -24,26 +24,14 @@ t1 = time.time()
 #İstenilen formata donusturulmus excel dosyasini yaratir ve gerekli basliklari ekler
 duzenlenmisWorkbook = xls.Workbook(f"{file}_(Duzenlenmis).xlsx") #Duzenlenmis  dosyayi olusturur.
 duzenlenmisSheet = duzenlenmisWorkbook.add_worksheet("Bades") #Excel dosyasina tablo ismi verir
+
 cell_format = duzenlenmisWorkbook.add_format()
 cell_format.set_bg_color('#00B0F0')
-duzenlenmisSheet.write("A1","Ref. No",cell_format)
-duzenlenmisSheet.write("B1","Bulgu Adı",cell_format)
-duzenlenmisSheet.write("C1","Önem ",cell_format)
-duzenlenmisSheet.write("D1","Etkisi ",cell_format)
-duzenlenmisSheet.write("E1","Erişim Noktası ",cell_format)
-duzenlenmisSheet.write("F1","Kullanıcı Profili ",cell_format)
-duzenlenmisSheet.write("G1","Bulgunun Kategorisi ",cell_format)
-duzenlenmisSheet.write("H1","Bulgunun Tespit Edildiği Bileşenler ",cell_format)
-duzenlenmisSheet.write("I1","Bulgu Açıklaması ",cell_format)
-duzenlenmisSheet.write("J1","Çözüm Önerisi ",cell_format)
-duzenlenmisSheet.write("K1","Referanslar ",cell_format)
-duzenlenmisSheet.write("L1","Tarih ",cell_format)
-duzenlenmisSheet.write("M1","Durum ",cell_format)
-duzenlenmisSheet.write("N1","İyileştirme-Ek kontrol önerisi ",cell_format)
-duzenlenmisSheet.write("O1","Bulgu Cevabı/Aksiyon ",cell_format)
-duzenlenmisSheet.write("P1","PluginID ",cell_format)
-duzenlenmisSheet.write("Q1","Port ",cell_format)
-duzenlenmisSheet.write("R1","Images ",cell_format)
+titles = ["Ref. No","Bulgu Adı","Önem ","Etkisi ","Erişim Noktası ","Kullanıcı Profili ","Bulgunun Kategorisi ","Bulgunun Tespit Edildiği Bileşenler ","Bulgu Açıklaması ","Çözüm Önerisi ","Referanslar ","Tarih ","Durum ","İyileştirme-Ek kontrol önerisi ","Bulgu Cevabı/Aksiyon ","PluginID ","Port ","Images "]
+x = 65
+for title in titles:  
+    duzenlenmisSheet.write(f"{chr(x)}1",title,cell_format)
+    x += 1
 
 for x in range(1,allGroupsSheet.nrows):#1 den baslamamizin sebebi basliklari alsin istemiyoruz
     duzenlenmisSheet.write(f"A{x + 1}", allGroupsSheet.cell_value(x, 0))
@@ -69,9 +57,11 @@ for x in range(1,allGroupsSheet.nrows):#1 den baslamamizin sebebi basliklari als
 print(f"{Fore.LIGHTYELLOW_EX}Bu excel sayfasinda {allGroupsSheet.nrows} satir bulunmaktadir")
 #sutun sayisi
 print(f"{Fore.LIGHTYELLOW_EX}Bu excel sayfasinda {allGroupsSheet.ncols} sutun bulunmaktadir" + "\n")    
+
 t2 = time.time()
 tm = t2- t1
 tm = round(tm,2)
+
 print(f"{Fore.CYAN}{file}_(Duzenlenmis).xlsx dosyasi basariyla olusturuldu.")
 print(f"{Fore.CYAN}{tm} saniye sürdü." + "\n")
 print(f"{Fore.RED}Cikmak icin ENTER tusuna basiniz")
